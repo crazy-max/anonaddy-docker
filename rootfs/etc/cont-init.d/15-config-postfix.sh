@@ -48,6 +48,12 @@ else
   ZEN_DOMAIN="${POSTFIX_SPAMHAUS_DQS_KEY}.zen.dq.spamhaus.net"
 fi
 
+POSTFIX_REJECT_UNKNOWN_REVERSE_CLIENT_HOSTNAME_RESTRICTION=""
+if [ "$POSTFIX_REJECT_UNKNOWN_REVERSE_CLIENT_HOSTNAME" = "true" ]; then
+  POSTFIX_REJECT_UNKNOWN_REVERSE_CLIENT_HOSTNAME_RESTRICTION=$',
+    reject_unknown_reverse_client_hostname'
+fi
+
 cat >>/etc/postfix/main.cf <<EOL
 myhostname = ${ANONADDY_HOSTNAME}
 mydomain = ${ANONADDY_DOMAIN}
@@ -90,8 +96,7 @@ smtpd_sender_restrictions =
     permit_mynetworks,
     permit_sasl_authenticated,
     reject_non_fqdn_sender,
-    reject_unknown_sender_domain,
-    reject_unknown_reverse_client_hostname
+    reject_unknown_sender_domain${POSTFIX_REJECT_UNKNOWN_REVERSE_CLIENT_HOSTNAME_RESTRICTION}
 
 smtpd_recipient_restrictions =
     permit_mynetworks,
