@@ -243,7 +243,7 @@ fi
 echo "Setting Rspamd addy_blocklist.lua"
 mkdir -p /etc/rspamd/lua.local.d
 cat >/etc/rspamd/lua.local.d/addy_blocklist.lua <<EOL
-local blocklist_api_url = '${APP_URL}/api/blocklist-check'
+local blocklist_api_url = 'http://127.0.0.1:8000/api/blocklist-check'
 local blocklist_secret = '${BLOCKLIST_API_SECRET}'
 
 -- Simple percent-encode for query parameter values (rspamd_http has no escape)
