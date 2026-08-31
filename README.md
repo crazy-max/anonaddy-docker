@@ -158,6 +158,7 @@ linux/arm64
 * `POSTFIX_DEBUG`: Enable debug (default `false`)
 * `POSTFIX_MYNETWORKS`: Trusted SMTP clients that may relay outbound mail through Postfix (default `127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128`)
 * `POSTFIX_MESSAGE_SIZE_LIMIT`: The maximal size in bytes of a message, including envelope information (default `26214400`)
+* `POSTFIX_REJECT_UNKNOWN_REVERSE_CLIENT_HOSTNAME`: Reject clients when their IP address has no reverse DNS entry (default `true`)
 * `POSTFIX_STRIP_SENDER_HEADER`: Strip the Sender header from incoming emails to prevent SES rejection issues (default `false`)
 * `POSTFIX_SMTPD_TLS`: Enabling TLS in the Postfix SMTP server (default `false`, possible values: `true`|`may`|`encrypt`|`ask`|`require`, see [Postfix TLS README](https://www.postfix.org/TLS_README.html#client_tls_levels))
 * `POSTFIX_SMTPD_TLS_CERT_FILE`: File with the Postfix SMTP server RSA certificate in PEM format
@@ -182,6 +183,9 @@ linux/arm64
 > unless every client in those ranges is trusted to relay mail. Docker port
 > publishing and proxies can make external SMTP clients appear as private bridge
 > addresses.
+> If Docker or a proxy makes public SMTP clients appear as a local bridge address
+> without reverse DNS, set `POSTFIX_REJECT_UNKNOWN_REVERSE_CLIENT_HOSTNAME=false`
+> instead of trusting that bridge range.
 
 ### RSPAMD
 
