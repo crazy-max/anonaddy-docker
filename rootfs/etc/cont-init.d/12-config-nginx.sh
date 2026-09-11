@@ -6,6 +6,7 @@ set -e
 
 echo "Setting Nginx configuration"
 sed -e "s#@UPLOAD_MAX_SIZE@#$UPLOAD_MAX_SIZE#g" \
+  -e "s#@NGINX_WORKER_PROCESSES@#$NGINX_WORKER_PROCESSES#g" \
   -e "s#@REAL_IP_FROM@#$REAL_IP_FROM#g" \
   -e "s#@REAL_IP_HEADER@#$REAL_IP_HEADER#g" \
   -e "s#@LOG_IP_VAR@#$LOG_IP_VAR#g" \
